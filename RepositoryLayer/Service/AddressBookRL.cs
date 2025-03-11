@@ -12,89 +12,79 @@ namespace RepositoryLayer.Service
 {
     public class AddressBookRL : IAddressBookRL
     {
-        private readonly AddressBookDbContext _addressBookContext;
+        private readonly AddressBookDbContext _context;
+        private readonly IMapper _mapper;
 
-        public AddressBookRL(AddressBookDbContext addressBookContext)
+        public AddressBookRL(AddressBookDbContext context, IMapper mapper)
         {
-            _addressBookContext = addressBookContext;
-        }
-
-        public async Task<ContactEntity> AddContact(ContactRequestModel contact)
-        {
-            var contactEntity = new ContactEntity
-            {
-                Name = contact.Name,
-                Phone = contact.Phone,
-                Email = contact.Email
-            };
-
-            await _addressBookContext.Contacts.AddAsync(contactEntity);
-            await _addressBookContext.SaveChangesAsync();
-            return contactEntity;
+            _context = context;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<ContactRequestModel>> GetContact()
         {
-            return await _addressBookContext.Contacts
-                .Select(c => new ContactRequestModel
-                {
-                    Name = c.Name,
-                    Phone = c.Phone,
-                    Email = c.Email
-                }).ToListAsync();
+            var contacts = await _context.Contacts.ToListAsync();
+            return _mapper.Map<IEnumerable<ContactRequestModel>>(contacts);
         }
 
         public async Task<ContactRequestModel> GetContactById(int id)
         {
-            var contact = await _addressBookContext.Contacts.FindAsync(id);
+            var contact = await _context.Contacts.FindAsync(id);
+
             if (contact == null)
             {
-                return null;
+                return null;  
+                // Return null if contact is not found
             }
 
-            return new ContactRequestModel
-            {
-                Name = contact.Name,
-                Phone = contact.Phone,
-                Email = contact.Email
-            };
+            return _mapper.Map<ContactRequestModel>(contact);  
+            // Convert ContactEntity to ContactRequestModel
+        }
+
+        public async Task<ContactEntity> AddContact(ContactRequestModel contact)
+        {
+            var newContact = _mapper.Map<ContactEntity>(contact);  
+            // AutoMapper does the conversion
+
+            _context.Contacts.Add(newContact);
+            await _context.SaveChangesAsync();
+
+            return newContact;
         }
 
         public async Task<ContactRequestModel> UpdateContact(int id, ContactRequestModel contact)
         {
-            var contactEntity = await _addressBookContext.Contacts.FindAsync(id);
-            if (contactEntity == null)
+            var contactToUpdate = await _context.Contacts.FindAsync(id);
+
+            if (contactToUpdate == null)
             {
-                return null;
+                return null; 
             }
 
-            contactEntity.Name = contact.Name;
-            contactEntity.Phone = contact.Phone;
-            contactEntity.Email = contact.Email;
+            // Use AutoMapper to map updated fields
+            _mapper.Map(contact, contactToUpdate);
 
-            _addressBookContext.Contacts.Update(contactEntity);
-            await _addressBookContext.SaveChangesAsync();
+            _context.Contacts.Update(contactToUpdate);
+            await _context.SaveChangesAsync();
 
-            return contact;
+            return _mapper.Map<ContactRequestModel>(contactToUpdate);
         }
+
 
         public async Task<ContactRequestModel> DeleteContact(int id)
         {
-            var contactEntity = await _addressBookContext.Contacts.FindAsync(id);
-            if (contactEntity == null)
+            var contact = await _context.Contacts.FindAsync(id);
+
+            if (contact == null)
             {
-                return null;
+                return null;  
             }
 
-            _addressBookContext.Contacts.Remove(contactEntity);
-            await _addressBookContext.SaveChangesAsync();
+            _context.Contacts.Remove(contact);
+            await _context.SaveChangesAsync();
 
-            return new ContactRequestModel
-            {
-                Name = contactEntity.Name,
-                Phone = contactEntity.Phone,
-                Email = contactEntity.Email
-            };
+            return _mapper.Map<ContactRequestModel>(contact); 
+            // Convert ContactEntity → ContactRequestModel
         }
     }
 }

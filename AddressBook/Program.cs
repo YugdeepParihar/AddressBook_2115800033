@@ -1,5 +1,6 @@
 using BusinessLayer.Interface;
 using BusinessLayer.Service;
+using BusinessLayer.MappingProfiles;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.Context;
 using RepositoryLayer.Interface;
@@ -22,6 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddScoped<IAddressBookRL, AddressBookRL>();
 builder.Services.AddScoped<IAddressBookBL, AddressBookBL>();
+builder.Services.AddAutoMapper(typeof(AddressBookProfile));
 
 
 var app = builder.Build();

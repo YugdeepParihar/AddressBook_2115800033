@@ -12,40 +12,110 @@ namespace BusinessLayer.Service
     public class AddressBookBL : IAddressBookBL
     {
         private readonly IAddressBookRL _addressBookRL;
+        private readonly IMapper _mapper;
 
-        public AddressBookBL(IAddressBookRL addressBookRL)
+        public AddressBookBL(IAddressBookRL addressBookRL, IMapper mapper)
         {
             _addressBookRL = addressBookRL;
+            _mapper = mapper;
         }
-
         public async Task<IEnumerable<ContactResponseModel<ContactRequestModel>>> GetContact()
         {
             var contacts = await _addressBookRL.GetContact();
-            return contacts.Select(contact => new ContactResponseModel<ContactRequestModel> { Data = contact });
+            return contacts.Select(contact => new ContactResponseModel<ContactRequestModel>
+            {
+                Success = "true",
+                Message = "Contact List",
+                Data = contact
+            });
         }
 
         public async Task<ContactResponseModel<ContactRequestModel>> GetContactById(int id)
         {
             var contact = await _addressBookRL.GetContactById(id);
-            return new ContactResponseModel<ContactRequestModel> { Data = contact };
+            if (contact != null)
+            {
+                return new ContactResponseModel<ContactRequestModel>
+                {
+                    Success = "true",
+                    Message = "Contact Found",
+                    Data = contact
+                };
+            }
+            return new ContactResponseModel<ContactRequestModel>
+            {
+                Success = "false",
+                Message = "Contact Not Found",
+                Data = null
+            };
         }
 
-        public async Task<ContactResponseModel<ContactRequestModel>> AddContact(ContactRequestModel contactRequestModel)
+        public async Task<ContactResponseModel<ContactRequestModel>> AddContact(ContactRequestModel contact)
         {
-            var contact = await _addressBookRL.AddContact(contactRequestModel);
-            return new ContactResponseModel<ContactRequestModel> { Data = contactRequestModel };
+
+            // Pass the correctly named variable
+            var addedContact = await _addressBookRL.AddContact(contact);
+
+            // Ensure addedContact is not null before mapping
+            if (addedContact == null)
+            {
+                return new ContactResponseModel<ContactRequestModel>
+                {
+                    Success = "false",
+                    Message = "Failed to add contact",
+                    Data = null
+                };
+            }
+
+            // Return response with mapped ContactRequestModel
+            return new ContactResponseModel<ContactRequestModel>
+            {
+                Success = "true",
+                Message = "Contact Added",
+                Data = _mapper.Map<ContactRequestModel>(addedContact)
+            };
         }
 
-        public async Task<ContactResponseModel<ContactRequestModel>> UpdateContact(int id, ContactRequestModel contactRequestModel)
+
+
+        public async Task<ContactResponseModel<ContactRequestModel>> UpdateContact(int id, ContactRequestModel contact)
         {
-            var contact = await _addressBookRL.UpdateContact(id, contactRequestModel);
-            return new ContactResponseModel<ContactRequestModel> { Data = contactRequestModel };
+            var updatedContact = await _addressBookRL.UpdateContact(id, contact);
+            if (updatedContact != null)
+            {
+                return new ContactResponseModel<ContactRequestModel>
+                {
+                    Success = "true",
+                    Message = "Contact Updated",
+                    Data = _mapper.Map<ContactRequestModel>(updatedContact)
+                };
+            }
+            return new ContactResponseModel<ContactRequestModel>
+            {
+                Success = "false",
+                Message = "Contact Not Found",
+                Data = null
+            };
         }
 
         public async Task<ContactResponseModel<ContactRequestModel>> DeleteContact(int id)
         {
             var contact = await _addressBookRL.DeleteContact(id);
-            return new ContactResponseModel<ContactRequestModel> { Data = contact };
+            if (contact != null)
+            {
+                return new ContactResponseModel<ContactRequestModel>
+                {
+                    Success = "true",
+                    Message = "Contact Deleted",
+                    Data = _mapper.Map<ContactRequestModel>(contact)
+                };
+            }
+            return new ContactResponseModel<ContactRequestModel>
+            {
+                Success = "false",
+                Message = "Contact Not Found",
+                Data = null
+            };
         }
     }
 }
