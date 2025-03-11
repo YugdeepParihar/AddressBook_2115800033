@@ -9,6 +9,8 @@ namespace BusinessLayer.Interface
 {
     public interface IAddressBookBL
     {
+
+        //CRUD Operations
         Task<IEnumerable<ContactResponseModel<ContactRequestModel>>> GetContact();
         Task<ContactResponseModel<ContactRequestModel>> GetContactById(int id);
         Task<ContactResponseModel<ContactRequestModel>> AddContact(ContactRequestModel contactRequestModel);

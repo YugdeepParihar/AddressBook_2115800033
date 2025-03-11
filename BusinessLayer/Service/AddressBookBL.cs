@@ -19,6 +19,8 @@ namespace BusinessLayer.Service
             _addressBookRL = addressBookRL;
             _mapper = mapper;
         }
+
+        //CRUD to get all contacts
         public async Task<IEnumerable<ContactResponseModel<ContactRequestModel>>> GetContact()
         {
             var contacts = await _addressBookRL.GetContact();

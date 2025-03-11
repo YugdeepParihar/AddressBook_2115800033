@@ -9,7 +9,8 @@ using RepositoryLayer.Entity;
 namespace RepositoryLayer.Interface
 {
     public interface IAddressBookRL
-    {
+    {   //Linked to BusinessLayer/Interface/IAddressBookBL.cs
+        //to provide the implementation of the methods
         Task<IEnumerable<ContactRequestModel>> GetContact();
 
         Task<ContactRequestModel> GetContactById(int id);

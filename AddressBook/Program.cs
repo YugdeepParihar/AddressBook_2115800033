@@ -21,8 +21,12 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 builder.Services.AddEndpointsApiExplorer();
 
+//Dependency Injection for Repository Layer
 builder.Services.AddScoped<IAddressBookRL, AddressBookRL>();
+//Dependency Injection for Business Layer
 builder.Services.AddScoped<IAddressBookBL, AddressBookBL>();
+
+//Dependency Injection for AutoMapper
 builder.Services.AddAutoMapper(typeof(AddressBookProfile));
 
 

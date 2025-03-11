@@ -13,8 +13,11 @@ namespace AddressBook.Controllers
         public AddressBookController(IAddressBookBL addressBookBL)
         {
             _addressBookBL = addressBookBL;
+
+
         }
 
+        
         /// <summary>
         /// This method is used to get all contacts from the database
         /// </summary>
