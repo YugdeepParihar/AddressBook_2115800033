@@ -7,16 +7,22 @@ using System.Threading.Tasks;
 
 namespace ModelLayer.Model
 {
-    public class ContactRequestModel
+    //This is the Address Book Entity Model
+    public class AddressBookEntryEntity
     {
+        [Key]
+        public int Id { get; set; }
 
         [Required]
         public string Name { get; set; }
 
         [Required]
-        [EmailAddress]
+        public string PhoneNumber { get; set; }
+
+        [Required]
         public string Email { get; set; }
-        [Phone]
-        public string Phone { get; set; }
+
+        [Required]
+        public string Address { get; set; }
     }
 }

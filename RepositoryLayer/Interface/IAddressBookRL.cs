@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using ModelLayer.Model;
-using RepositoryLayer.Entity;
 
 namespace RepositoryLayer.Interface
 {
     public interface IAddressBookRL
-    {   //Linked to BusinessLayer/Interface/IAddressBookBL.cs
-        //to provide the implementation of the methods
-        Task<IEnumerable<ContactRequestModel>> GetContact();
-
-        Task<ContactRequestModel> GetContactById(int id);
-        Task<ContactEntity> AddContact(ContactRequestModel contact);
-        Task<ContactRequestModel> UpdateContact(int id, ContactRequestModel contact);
-        Task<ContactRequestModel> DeleteContact(int id);
+    {
+        Task<IEnumerable<AddressBookEntryEntity>> GetAllContacts();
+        Task<AddressBookEntryEntity?> GetContactById(int id);
+        Task<AddressBookEntryEntity> AddContact(AddressBookEntryEntity contact);
+        Task<AddressBookEntryEntity?> UpdateContact(int id, AddressBookEntryEntity contact);
+        Task<bool> DeleteContact(int id);
     }
 }

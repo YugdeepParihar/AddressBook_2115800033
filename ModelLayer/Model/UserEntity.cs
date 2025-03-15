@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RepositoryLayer.Entity
+namespace ModelLayer.Model
 {
-    public class ContactEntity
+    //This is the User Entity Model
+    public class UserEntity
     {
         [Key]
         public int Id { get; set; }
@@ -16,11 +17,9 @@ namespace RepositoryLayer.Entity
         public string Name { get; set; }
 
         [Required]
-        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
-        [Phone]
-        public string Phone { get; set; }
+        public string PasswordHash { get; set; }
     }
 }
