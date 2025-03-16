@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35728.132 d17.12
+VisualStudioVersion = 17.12.35728.132
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBook", "AddressBook\AddressBook.csproj", "{9C94D51E-C39B-4ABD-9B54-5780A976A4B0}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelLayer", "ModelLayer\ModelLayer.csproj", "{D85CABA7-85B0-44D5-8835-A29AEDE80D9B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryLayer", "RepositoryLayer\RepositoryLayer.csproj", "{02820EE8-4B70-43EF-BA4D-1015AFCB6838}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressTest", "AddressTest\AddressTest.csproj", "{B1E9EC2B-D648-4725-89F4-F3E5C677D381}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +35,15 @@ Global
 		{02820EE8-4B70-43EF-BA4D-1015AFCB6838}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02820EE8-4B70-43EF-BA4D-1015AFCB6838}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02820EE8-4B70-43EF-BA4D-1015AFCB6838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1E9EC2B-D648-4725-89F4-F3E5C677D381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E9EC2B-D648-4725-89F4-F3E5C677D381}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E9EC2B-D648-4725-89F4-F3E5C677D381}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E9EC2B-D648-4725-89F4-F3E5C677D381}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {918720C9-7618-4E41-AD9A-933801372AEA}
 	EndGlobalSection
 EndGlobal
