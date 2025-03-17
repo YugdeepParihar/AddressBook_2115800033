@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelLayer", "ModelLayer\Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryLayer", "RepositoryLayer\RepositoryLayer.csproj", "{02820EE8-4B70-43EF-BA4D-1015AFCB6838}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressTest", "AddressTest\AddressTest.csproj", "{B1E9EC2B-D648-4725-89F4-F3E5C677D381}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{02820EE8-4B70-43EF-BA4D-1015AFCB6838}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02820EE8-4B70-43EF-BA4D-1015AFCB6838}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02820EE8-4B70-43EF-BA4D-1015AFCB6838}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B1E9EC2B-D648-4725-89F4-F3E5C677D381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B1E9EC2B-D648-4725-89F4-F3E5C677D381}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B1E9EC2B-D648-4725-89F4-F3E5C677D381}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B1E9EC2B-D648-4725-89F4-F3E5C677D381}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

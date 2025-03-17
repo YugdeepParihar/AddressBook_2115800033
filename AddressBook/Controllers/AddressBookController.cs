@@ -5,23 +5,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ModelLayer.DTO;
-using NUnit.Framework;
 using RepositoryLayer.Entity;
-using RepositoryLayer.Service;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 [ApiController]
 [Route("api/addressbook")]
-
-
 public class AddressBookController : ControllerBase
 {
     private readonly AddressBookBL _service;
     private readonly IMapper _mapper;
-
-    public AddressBookRL Object { get; }
 
     public AddressBookController(AddressBookBL service, IMapper mapper)
     {
@@ -29,10 +23,6 @@ public class AddressBookController : ControllerBase
         _mapper = mapper;
     }
 
-    public AddressBookController(AddressBookRL @object)
-    {
-        Object = @object;
-    }
 
     [HttpGet]
     [Authorize(Roles = "User,Admin")]
@@ -158,14 +148,14 @@ public class AddressBookController : ControllerBase
     //}
 
 
-    public int? GetUserId()
+    private int? GetUserId()
     {
         var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
         return userIdClaim != null ? int.Parse(userIdClaim.Value) : (int?)null;
     }
 
 
-    public string GetUserRole()
+    private string GetUserRole()
     {
         var roleClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
         return roleClaim?.Value ?? string.Empty;
